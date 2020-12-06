@@ -92,6 +92,16 @@ time_search_id(X,Y,Time):- get_time(Start), path(X,Y,P), get_time(End), Time is 
 
 Приведите результаты работы программы: найденные пути, время, затраченное на поиск тем или иным алгоритмом, длину найденного первым пути. Используйте таблицы, если необходимо.
 
+```Prolog
+?- path([b,b,b,b,e,w,w,w],[w,w,w,e,b,b,b,b],X).
+[[w,w,w,e,b,b,b,b],[w,w,e,w,b,b,b,b],[w,w,b,w,e,b,b,b],[w,w,b,w,b,e,b,b],[w,w,b,e,b,w,b,b],[w,e,b,w,b,w,b,b],[e,w,b,w,b,w,b,b],[b,w,e,w,b,w,b,b],[b,w,b,w,e,w,b,b],[b,w,b,w,b,w,e,b],[b,w,b,w,b,w,b,e],[b,w,b,w,b,e,b,w],[b,w,b,e,b,w,b,w],[b,e,b,w,b,w,b,w],[b,b,e,w,b,w,b,w],[b,b,b,w,e,w,b,w],[b,b,b,w,b,w,e,w],[b,b,b,w,b,e,w,w],[b,b,b,e,b,w,w,w],[b,b,b,b,e,w,w,w]]
+X = [[w, w, w, e, b, b, b, b], [w, w, e, w, b, b, b|...], [w, w, b, w, e, b|...], [w, w, b, w, b|...], [w, w, b, e|...], [w, e, b|...], [e, w|...], [b|...], [...|...]|...] .
+
+?- search_id([b,b,b,b,e,w,w,w],[w,w,w,e,b,b,b,b],X).
+[[w,w,w,e,b,b,b,b],[w,w,e,w,b,b,b,b],[w,w,b,w,e,b,b,b],[w,w,b,w,b,e,b,b],[w,w,b,e,b,w,b,b],[w,e,b,w,b,w,b,b],[e,w,b,w,b,w,b,b],[b,w,e,w,b,w,b,b],[b,w,b,w,e,w,b,b],[b,w,b,w,b,w,e,b],[b,w,b,w,b,w,b,e],[b,w,b,w,b,e,b,w],[b,w,b,e,b,w,b,w],[b,e,b,w,b,w,b,w],[b,b,e,w,b,w,b,w],[b,b,b,w,e,w,b,w],[b,b,b,w,b,w,e,w],[b,b,b,w,b,e,w,w],[b,b,b,e,b,w,w,w],[b,b,b,b,e,w,w,w]]
+X = [[w, w, w, e, b, b, b, b], [w, w, e, w, b, b, b|...], [w, w, b, w, e, b|...], [w, w, b, w, b|...], [w, w, b, e|...], [w, e, b|...], [e, w|...], [b|...], [...|...]|...].
+```
+
 | Алгоритм поиска |  Длина найденного первым пути  |  Время работы  |
 |-----------------|--------------------------------|----------------|
 | В глубину       |               20               |     0.0823     |
