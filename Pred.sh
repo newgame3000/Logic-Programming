@@ -8,7 +8,7 @@ for str in `grep -Eo '(0 @.*@ INDI|1 NAME .* /.*/)' $1 | sed 's/0 @/@/g; s/@ IND
 	echo $str >> text
 done
 
-for str in `grep -Eo '(0 @.*@ FAM|1 HUSB @.*@|1 WIFE @.*@|1 CHIL @.*@)' $1 | sed 's/0 @.*@ FAM//g; s/1 HUSB/HUSB/g; s/1 WIFE/WIFE/g; s/1 CHIL/CHIL/g; '`; do
+for str in `grep -Eo '(0 @.*@ FAM|1 HUSB @.*@|1 WIFE @.*@|1 CHIL @.*@)' $1 | sed 's/0 @.*@ FAM//g; s/1 HUSB/HUSB/g; s/1 WIFE/WIFE/g; s/1 CHIL/CHIL/g;'`; do
 	echo $str >> text2
 done
 
@@ -39,14 +39,13 @@ for str in `cat text2`; do
 				cid=$str	
 				hname=""	
 				wname=""
-				cname=""		
+				cname=""
 				for str2 in `cat text`; do
 
 					if [ $h2 -eq 1 ]
 					then
-							hname=$str2							
-							h2=0	
-							#echo $str2 	
+							hname=$str2	
+							h2=0
 					fi
 
 					if [ $w2 -eq 1 ]
@@ -59,11 +58,12 @@ for str in `cat text2`; do
 					if [ $c2 -eq 1 ]
 					then
 							cname=$str2
-							#echo $str2 
 							c2=0
+							#echo $str2 
 					fi
+					
 
-					if [[ "$hname" != ""  && "$wname" != "" && "$cname" != "" ]]
+					if [[ "$hname" != ""  && "$wname" != "" && "$cname" != ""  ]]
 					then
 						echo "father('"$hname"','"$cname"')." >> predicats1.pl
 						echo "mother('"$wname"','"$cname"')." >> predicats1.pl
@@ -94,6 +94,7 @@ for str in `cat text2`; do
 		if [ $str = HUSB ]
 		then
 			h=1
+			
 		fi
 
 		if [ $str = WIFE ]
@@ -106,10 +107,29 @@ for str in `cat text2`; do
 			c=1
 		fi	
 done
+
+for str in `grep -Eo '(1 NAME .* /.*/|1 SEX .)' $1 | sed 's/1 NAME //g; s/\///g; s/ /_/g; s/1_SEX_//g;'`; do
+	echo $str >> text3
+done
+
+name=""
+
+for str in `cat text3`; do 
+    
+    if [ "$name" = "" ]
+    then
+        name=$str
+    else
+        echo "pol('$name','$str')." >> predicats1.pl
+        name=""
+    fi
+    
+done
+
 sort predicats1.pl > predicats.pl
+
 rm predicats1.pl
 rm text
 rm text2
-
-
+rm text3
 
